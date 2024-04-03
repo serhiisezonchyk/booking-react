@@ -1,0 +1,18 @@
+@use 'sass:map';
+body {
+  overflow: hidden;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: map.get($breakpoints, xxl);
+  @include lg {
+    max-width: calc(map.get($breakpoints, md) + 100px);
+  }
+  @include md {
+    max-width: calc(map.get($breakpoints, sm) + 40px);
+  }
+  @include sm {
+    max-width: calc(map.get($breakpoints, xs) + 60px);
+  }
+}
