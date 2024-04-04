@@ -39,3 +39,4 @@ export interface QueryParam {
   minPrice: number;
   maxPrice: number;
 }
+export type MapTypes = 'default' | 'rounded';

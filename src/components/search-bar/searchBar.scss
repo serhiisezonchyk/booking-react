@@ -11,35 +11,35 @@ $form-height: 64px;
     }
     &-button {
       padding: 16px 36px;
-      border: 1px solid #999;
+      border: 1px solid clr(border);
       border-bottom: 0;
       cursor: pointer;
-      background-color: white;
+      background-color: c;
       text-transform: capitalize;
       transition: all 0.3s ease;
       &.active {
-        border-color: black;
-        background-color: black;
-        color: white;
+        border-color: clr(bg, black);
+        background-color: clr(bg, black);
+        color: clr(bg);
       }
       &:first-child {
         border-top-left-radius: 5px;
         border-right: none;
         @include sm {
-          border-bottom: 1px solid #999;
+          border-bottom: 1px solid clr(border);
         }
       }
       &:last-child {
         border-top-right-radius: 5px;
         border-left: none;
         @include sm {
-          border-bottom: 1px solid #999;
+          border-bottom: 1px solid clr(border);
         }
       }
     }
   }
   &__form {
-    border: 1px solid #999;
+    border: 1px solid clr(border);
     display: flex;
     justify-content: space-between;
     height: $form-height;
@@ -69,13 +69,13 @@ $form-height: 64px;
       }
       @include sm {
         padding: 20px;
-        border: 1px solid #999;
+        border: 1px solid clr(border);
       }
     }
     &-button {
       border: none;
       cursor: pointer;
-      background-color: #face51;
+      background-color: clr(accent);
       padding: 0;
       flex: 1;
       width: 100%;

@@ -1,0 +1,12 @@
+.notification {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: clr(red);
+  color: white;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+}

@@ -20,14 +20,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: black;
+    background-color: clr(bg,black);
     display: flex;
     align-items: center;
     &-close {
       position: absolute;
       top: 0;
       right: 0;
-      color: white;
+      color: clr(bg);
       font-size: 36px;
       font-weight: bold;
       padding: 50px;

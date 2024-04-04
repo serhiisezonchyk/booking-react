@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background: #fcf5f3;
+    background: clr(bg, secondary);
     height: 100%;
     @include xl {
       background-color: transparent;
@@ -61,7 +61,7 @@
     transition: all 0.3s ease;
 
     &--accent {
-      background: #fece51;
+      background: clr(accent);
     }
     &:hover {
       scale: 1.05;
@@ -83,8 +83,8 @@
   }
   &__menu {
     position: absolute;
-    background-color: black;
-    color: white;
+    background-color: clr(bg, black);
+    color: clr(bg);
     height: 100vh;
     width: 60%;
     top: 0;
@@ -94,6 +94,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 2;
     @include xs {
       width: 100%;
       right: -100%;
@@ -107,6 +108,37 @@
       transition: scale 0.4s ease;
       &:hover {
         scale: 1.05;
+      }
+    }
+  }
+
+  &__user-div {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    padding: 10px;
+    position: relative;
+    .user-image {
+      @include avatar(40px);
+      margin-right: 20px;
+      @include sm {
+        width: 36px;
+        height: 36px;
+      }
+    }
+    .user-span {
+      margin-right: 20px;
+      @include md {
+        display: none;
+      }
+    }
+    .user-link {
+      padding: 12px 24px;
+      background-color: clr(accent);
+      cursor: pointer;
+      border: none;
+      @include md {
+        display: none;
       }
     }
   }

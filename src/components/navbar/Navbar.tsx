@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { userData } from '../../data/dummydata';
+import Notification from '../notification/Notification';
 const Navbar: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
+  const user = true ? userData : false;
   return (
     <nav className="nav container">
       <div className="nav__left">
@@ -22,12 +26,29 @@ const Navbar: React.FC = () => {
         </a>
       </div>
       <div className="nav__right">
-        <a href="/" className="nav__link">
-          Sign in
-        </a>
-        <a href="/" className="nav__link nav__link--accent">
-          Sign up
-        </a>
+        {user ? (
+          <div className="nav__user-div">
+            <Link to="/profile">
+              <img className="user-image" src={user.img} alt="" />
+            </Link>
+
+            <span className="user-span">{user.name}</span>
+            <Link className="user-link" to="/profile">
+              <Notification />
+              Profile
+            </Link>
+          </div>
+        ) : (
+          <>
+            <a href="/" className="nav__link">
+              Sign in
+            </a>
+            <a href="/" className="nav__link nav__link--accent">
+              Sign up
+            </a>
+          </>
+        )}
+
         <div className="nav__menu-button">
           <img
             src="./menu.png"

@@ -93,7 +93,7 @@ const SinglePage = () => {
           </div>
           <p className="single-page__features__title">Location</p>
           <div className="single-page__features__map-container">
-            <Map items={[singlePostData]} />
+            <Map items={[singlePostData]} type="rounded" />
           </div>
           <div className="single-page__features__buttons">
             <button>

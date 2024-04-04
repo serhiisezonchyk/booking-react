@@ -18,3 +18,27 @@ $navheight: (
   'md': 80px,
   'lg': 96px,
 );
+
+$colors: (
+  bg: (
+    base: #fff,
+    secondary: #fcf5f3,
+    black: #000,
+  ),
+  accent: (
+    base: #fece51,
+    secondary: #ffd2602c,
+  ),
+  gray: (
+    base: #f5f5f5,
+    secondary: #888,
+    thirdary: #444,
+  ),
+  border: (
+    base: #e0e0e0,
+    dark: #999,
+  ),
+  red: (
+    base: red,
+  ),
+);
