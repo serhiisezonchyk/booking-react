@@ -18,7 +18,7 @@ $form-height: 64px;
       text-transform: capitalize;
       transition: all 0.3s ease;
       &.active {
-        border-color: clr(bg, black);
+        border-color: (bg, black);
         background-color: clr(bg, black);
         color: clr(bg);
       }
@@ -71,6 +71,12 @@ $form-height: 64px;
         padding: 20px;
         border: 1px solid clr(border);
       }
+    }
+    a {
+      flex: 1;
+      background-color: clr(accent);
+      display: flex;
+      align-items: center;
     }
     &-button {
       border: none;

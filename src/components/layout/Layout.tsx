@@ -1,4 +1,6 @@
-import { Outlet } from 'react-router-dom';
+import { useContext } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import Navbar from '../navbar/Navbar';
 
 const Layout = () => {
@@ -14,4 +16,21 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+const RequiredAuthLayout = () => {
+  const { user } = useContext(AuthContext);
+
+  return !user ? (
+    <Navigate to="/login" />
+  ) : (
+    <div className="layout">
+      <header className="header">
+        <Navbar />
+      </header>
+      <main className="hide-scroll content">
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+export { Layout, RequiredAuthLayout };

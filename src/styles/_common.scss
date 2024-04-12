@@ -16,3 +16,8 @@ body {
     max-width: calc(map.get($breakpoints, xs) + 60px);
   }
 }
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

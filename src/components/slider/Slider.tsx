@@ -39,7 +39,12 @@ const Slider = ({ images }: SliderProps) => {
       )}
 
       <div className="slider__big">
-        <img className="slider-image big" src={images[0]} alt="Image" onClick={() => setImageIndex(0)} />
+        <img
+          className="slider-image big"
+          src={images[0] || '/noimg.png'}
+          alt="Image"
+          onClick={() => setImageIndex(0)}
+        />
       </div>
       <div className="slider__small">
         {images.slice(1).map((image, index) => (

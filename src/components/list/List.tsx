@@ -1,10 +1,12 @@
-import { listData } from '../../data/dummydata';
+import { Post } from '../../data/types';
 import Card from '../card/Card';
-
-const List = () => {
+interface ListProps {
+  posts: Post[];
+}
+const List = ({ posts }: ListProps) => {
   return (
     <div className="item-list">
-      {listData.map((item) => (
+      {posts.map((item) => (
         <Card key={item.id} item={item} />
       ))}
     </div>

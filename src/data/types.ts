@@ -1,41 +1,44 @@
-export interface Apartment {
-  id: number;
-  title: string;
-  img: string;
-  bedroom: number;
-  bathroom: number;
-  price: number;
-  address: string;
-  latitude: number;
-  longitude: number;
+export interface User {
+  id: string;
+  email: string;
+  username: string;
+  avatar: string | null;
+  createdAt: string;
 }
-export interface SinglePost {
-  id: number;
+export interface Post {
+  id: string;
   title: string;
   price: number;
   images: string[];
-  bedRooms: number;
-  bathroom: number;
-  size: number;
-  latitude: number;
-  longitude: number;
-  city: string;
   address: string;
-  school: string;
-  bus: string;
-  restaurant: string;
-  description: string;
+  city: string;
+  bedroom: number;
+  bathroom: number;
+  latitude: string;
+  longitude: string;
+  type: TypeType;
+  property: TypeProperty;
+  createdAt: Date;
+  isSaved?: boolean;
+  userId: string;
 }
-export interface UserData {
-  id: number;
-  name: string;
-  img: string;
+export interface PostDetails {
+  id: string;
+  desc: string;
+  utilities: string | null;
+  pet: string | null;
+  income: string | null;
+  size: number | null;
+  school: number | null;
+  bus: number | null;
+  restaurant: number | null;
+  postId: string;
 }
 export type TypeType = 'buy' | 'rent';
-export type TypeProperty = 'Apartment' | 'House' | 'Condo' | 'Land';
+export type TypeProperty = 'apartment' | 'house' | 'condo' | 'land';
 export interface QueryParam {
   type: TypeType;
-  location: string;
+  city: string;
   minPrice: number;
   maxPrice: number;
 }

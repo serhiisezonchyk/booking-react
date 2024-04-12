@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Apartment } from '../../data/types';
+import { Post } from '../../data/types';
 
 interface CardProps {
-  item: Apartment;
+  item: Post;
 }
 
 const Card = ({ item }: CardProps) => {
   return (
     <div className="card">
       <Link to={`/${item.id}`} className="card__img-container">
-        <img className="image" src={item.img} alt={`Image ${item.title}`} />
+        <img className="image" src={item.images[0] || '/noimg.png'} alt={`Image ${item.title}`} />
       </Link>
       <div className="card__text-container">
         <h2 className="card__title">

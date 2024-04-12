@@ -1,9 +1,9 @@
-import React from 'react';
-import { userData } from '../../data/dummydata';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const ChatPage = () => {
   const [chat, setChat] = React.useState<boolean | null>(false);
-  const user = userData;
+  const { user } = useContext(AuthContext);
   return (
     <div className="chat container">
       <div className="chat__list list hide-scroll">
@@ -12,25 +12,25 @@ const ChatPage = () => {
         </div>
         <div className="list-body">
           <div className="list-body__item item" onClick={() => setChat(true)}>
-            <img className="item__img" src={user.img} alt="" />
+            <img className="item__img" src={user?.avatar || '/noavatar.jpeg'} alt="" />
             <div className="item__wrapper">
-              <span className="item__wrapper__username">{user.name}</span>
+              <span className="item__wrapper__username">{user?.username}</span>
               <p className="item__wrapper__text">Lofesfesfesfs</p>
             </div>
             <span className="item__date">22:31</span>
           </div>
           <div className="list-body__item item" onClick={() => setChat(true)}>
-            <img className="item__img" src={user.img} alt="" />
+            <img className="item__img" src={user?.avatar || '/noavatar.jpeg'} alt="" />
             <div className="item__wrapper">
-              <span className="item__wrapper__username">{user.name}</span>
+              <span className="item__wrapper__username">{user?.username}</span>
               <p className="item__wrapper__text">Lofesfesfesfs</p>
             </div>
             <span className="item__date">22:31</span>
           </div>
           <div className="list-body__item item" onClick={() => setChat(true)}>
-            <img className="item__img" src={user.img} alt="" />
+            <img className="item__img" src={user?.avatar || '/noavatar.jpeg'} alt="" />
             <div className="item__wrapper">
-              <span className="item__wrapper__username">{user.name}</span>
+              <span className="item__wrapper__username">{user?.username}</span>
               <p className="item__wrapper__text">Lofesfesfesfs</p>
             </div>
             <span className="item__date">22:31</span>
@@ -39,9 +39,9 @@ const ChatPage = () => {
       </div>
       <div className={`chat__messages messages ${chat ? 'messages-open' : ''}`}>
         <div className="messages-header messages-container">
-          <img src={user.img} alt="" className="messages-header__img avatar" />
+          <img src={user?.avatar || '/noavatar.jpeg'} alt="" className="messages-header__img avatar" />
           <div className="messages-header__wrapper">
-            <span className="messages-header__name">{user.name}</span>
+            <span className="messages-header__name">{user?.username}</span>
             <span className="messages-header__time">21:31</span>
           </div>
           <img className="messages-header__img arrow" onClick={() => setChat(false)} src="/arrow.png" alt="" />

@@ -1,0 +1,91 @@
+.login {
+  height: 100%;
+  display: flex;
+  &__container {
+    flex: 3;
+    display: flex;
+    min-height: 100%;
+    height: fit-content;
+  }
+  &-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 0 auto;
+    gap: 16px;
+    @include xs {
+      min-width: 100%;
+      width: 100%;
+      margin: 0;
+    }
+    &__title {
+      letter-spacing: 1px;
+      font-weight: 200;
+    }
+    &__input {
+      max-width: 280px;
+      padding: 8px 16px;
+      border: 1px solid clr(border);
+      border-radius: 5px;
+      &:hover,
+      &:active {
+        border-color: clr(border, dark);
+      }
+      @include xs {
+        min-width: 100%;
+        width: 100%;
+      }
+    }
+    &__button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      background: clr(mint);
+      color: white;
+      font-weight: 100;
+      letter-spacing: 1px;
+      transition: background 0.3s ease;
+      cursor: pointer;
+      &:hover {
+        background: clr(mint, dark);
+      }
+    }
+    &__error {
+      font-weight: 100;
+      position: absolute;
+      color: clr(red, light);
+      bottom: 24px;
+    }
+    &__link {
+      color: clr(gray, secondary);
+      font-weight: 100;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+      margin-top: 8px;
+      &:hover {
+        color: clr(gray, thirdary);
+      }
+    }
+  }
+  &__img-container {
+    flex: 2;
+    background-color: clr(bg, secondary);
+    position: relative;
+    display: flex;
+    align-items: center;
+    @include md {
+      display: none;
+    }
+    &__img {
+      max-width: 105%;
+      position: absolute;
+      right: 0;
+      object-fit: contain;
+      @include xl {
+        width: 105%;
+        max-width: 105%;
+      }
+    }
+  }
+}

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { userData } from '../../data/dummydata';
+import { AuthContext } from '../../context/AuthContext';
 import Notification from '../notification/Notification';
 const Navbar: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
-  const user = true ? userData : false;
+  const { user } = useContext(AuthContext);
   return (
     <nav className="nav container">
       <div className="nav__left">
@@ -29,10 +29,10 @@ const Navbar: React.FC = () => {
         {user ? (
           <div className="nav__user-div">
             <Link to="/profile">
-              <img className="user-image" src={user.img} alt="" />
+              <img className="user-image" src={user.avatar || '/noavatar.jpeg'} alt="" />
             </Link>
 
-            <span className="user-span">{user.name}</span>
+            <span className="user-span">{user.username}</span>
             <Link className="user-link" to="/profile">
               <Notification />
               Profile
@@ -40,10 +40,10 @@ const Navbar: React.FC = () => {
           </div>
         ) : (
           <>
-            <a href="/" className="nav__link">
+            <a href="/login" className="nav__link">
               Sign in
             </a>
-            <a href="/" className="nav__link nav__link--accent">
+            <a href="/register" className="nav__link nav__link--accent">
               Sign up
             </a>
           </>

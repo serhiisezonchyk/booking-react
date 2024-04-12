@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import SearchBar from '../../components/search-bar/SearchBar';
+import { AuthContext } from '../../context/AuthContext';
 
 const HomePage: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const HomePage: React.FC = () => {
         <div className="homePage__text-container">
           <div className="homePage__text-container__wrapper">
             <h1 className="homePage__text-container__title">Find Real estate & get your dream place</h1>
-            <p className='homePage__text-container__description'>
+            <p className="homePage__text-container__description">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, nihil iusto ipsum adipisci alias
               cupiditate animi ea recusandae harum aperiam eos quaerat excepturi, placeat sapiente tempora atque nisi
               porro reprehenderit!
