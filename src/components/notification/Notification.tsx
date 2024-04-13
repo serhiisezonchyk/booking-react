@@ -1,5 +1,5 @@
-const Notification = () => {
-  return <div className="notification">3</div>;
+const Notification = ({number}:{number:number}) => {
+  return <div className="notification">{number}</div>;
 };
 
 export default Notification;

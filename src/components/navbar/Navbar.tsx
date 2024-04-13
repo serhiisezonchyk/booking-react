@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { useNotificationStore } from '../../lib/notificationStore';
 import Notification from '../notification/Notification';
 const Navbar: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const { user } = useContext(AuthContext);
+  const fetch = useNotificationStore((state) => state.fetch);
+  const number = useNotificationStore((state) => state.number);
   const handleMenuClick = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    fetch();
+  }, []);
   return (
     <nav className="nav container">
       <div className="nav__left">
@@ -34,7 +40,7 @@ const Navbar: React.FC = () => {
             </Link>
             <span className="user-span">{user.username}</span>
             <Link className="user-link" to="/profile">
-              <Notification />
+              {number > 0 && <Notification number={number} />}
               Profile
             </Link>
           </div>

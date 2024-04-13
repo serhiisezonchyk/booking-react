@@ -1,10 +1,12 @@
-import React, { Suspense, useContext, useState } from 'react';
-import { Await, useLoaderData, useParams, useSearchParams } from 'react-router-dom';
+import React, { Suspense, useContext, useEffect, useRef, useState } from 'react';
+import { Await, useLoaderData } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 import { AuthContext } from '../../context/AuthContext';
+import { SocketContext } from '../../context/SocketContext';
 import { Chat, Message, Receiver } from '../../data/types';
 import apiRequest from '../../lib/apiRequest';
 import { DeferChats, DeferChatsResponse } from '../../lib/loaders';
+import { useNotificationStore } from '../../lib/notificationStore';
 
 interface ChatState extends Chat {
   receiver: Receiver;
@@ -13,13 +15,21 @@ interface SendMessageResponse {
   message: Message;
 }
 const ChatPage = () => {
+  const messageEndRef = useRef<HTMLDivElement>(null);
+  const [textData, setTextData] = useState<string>('');
   const [chat, setChat] = useState<ChatState | null>(null);
   const data = useLoaderData() as DeferChats;
   const { user } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
+  const decrease = useNotificationStore((state) => state.decrease);
+
   const handleOpenChat = async (id: string, receiver: Receiver) => {
     try {
-      const res = await apiRequest.get<Chat>('/chat/' + id);
-      setChat({ ...res.data, receiver });
+      const res = await apiRequest.get<{ chat: Chat }>('/chat/' + id);
+      if (!res.data.chat.seenBy.includes(user?.id!)) {
+        decrease();
+      }
+      setChat({ ...res.data.chat, receiver });
     } catch (error) {
       console.log(error);
     }
@@ -27,17 +37,38 @@ const ChatPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const textData = formData.get('text');
     if (!textData) return;
     try {
-      const res = await apiRequest.post<SendMessageResponse>('/messages/' + chat?.id, { text: textData });
+      const res = await apiRequest.post<SendMessageResponse>('/message/' + chat?.id, { text: textData });
       setChat((prev) => ({ ...prev!, messages: [...prev?.messages!, res.data.message] }));
-      e.currentTarget.reset();
+      socket?.emit('sendMessage', { receiverId: chat?.receiver.id, data: res.data.message });
+      setTextData('');
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chat]);
+  useEffect(() => {
+    const read = async () => {
+      try {
+        await apiRequest.put('/chat/read/' + chat?.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (chat && socket)
+      socket.on('getMessage', (data: Message) => {
+        if (chat.id === data.chatId) {
+          setChat((prev) => ({ ...prev!, messages: [...prev?.messages!, data] }));
+          read();
+        }
+      });
+    return () => {
+      socket?.off('getMessage');
+    };
+  }, [socket, chat]);
   return (
     <div className="chat container">
       <div className="chat__list list hide-scroll">
@@ -65,7 +96,7 @@ const ChatPage = () => {
                             <p className="item__wrapper__text">{el.lastMessage || 'No messages yet.'}</p>
                           </div>
                           <span className="item__date">{el.lastMessageTime || ''}</span>
-                          {el.seenBy.includes(user?.id!) && <span className="item__notification">New</span>}
+                          {!el.seenBy.includes(user?.id!) && <span className="item__notification">New</span>}
                         </div>
                       ))}
                     </>
@@ -88,10 +119,10 @@ const ChatPage = () => {
               <img className="messages-header__img arrow" onClick={() => setChat(null)} src="/arrow.png" alt="" />
             </div>
             <div className="messages-body messages-container hide-scroll">
-              {chat.messages?.length !== 0 ? (
+              {chat.messages?.length === 0 ? (
                 <p>Say hello...</p>
               ) : (
-                chat.messages.map((el) => (
+                chat.messages?.map((el) => (
                   <div className={`message ${el.userId === user?.id ? 'own' : ''}`} key={el.id}>
                     <p className="message__text">{el.text}</p>
                     <span className="message__time">
@@ -100,9 +131,10 @@ const ChatPage = () => {
                   </div>
                 ))
               )}
+              <div ref={messageEndRef}></div>
             </div>
             <form onSubmit={handleSubmit} className="messages-footer messages-container">
-              <textarea name="text"></textarea>
+              <textarea name="text" value={textData} onChange={(e) => setTextData(e.target.value)}></textarea>
               <button>Send</button>
             </form>
           </>
