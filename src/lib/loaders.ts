@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { LoaderFunction, defer } from 'react-router-dom';
-import { Post } from '../data/types';
+import { Chat, ChatsResponse, Post } from '../data/types';
 import apiRequest from './apiRequest';
 
 export const singlePageloader: LoaderFunction<any> = async ({ request, params }) => {
@@ -17,8 +17,9 @@ export const listPageloader: LoaderFunction<any> = async ({ request }) => {
     postResponse: resPromise,
   });
 };
-export type DeferProfilePosts = { postResponse: Promise<{ userPosts:Post[], savedPosts:Post[]}> };
-export type DeferProfilePostsResponse = AxiosResponse<{ userPosts:Post[], savedPosts:Post[] }>;
+
+export type DeferProfilePosts = { postResponse: Promise<{ userPosts: Post[]; savedPosts: Post[] }> };
+export type DeferProfilePostsResponse = AxiosResponse<{ userPosts: Post[]; savedPosts: Post[] }>;
 export const profilePageloader: LoaderFunction<any> = async () => {
   const resPromise = apiRequest.get('/user/profilePosts');
   return defer({
@@ -26,3 +27,11 @@ export const profilePageloader: LoaderFunction<any> = async () => {
   });
 };
 
+export type DeferChats = { chatResponse: Promise<{ chats: ChatsResponse[] }> };
+export type DeferChatsResponse = AxiosResponse<{ chats: ChatsResponse[] }>;
+export const chatPageloader: LoaderFunction<any> = async () => {
+  const resPromise = apiRequest.get('/chat/');
+  return defer({
+    chatResponse: resPromise,
+  });
+};

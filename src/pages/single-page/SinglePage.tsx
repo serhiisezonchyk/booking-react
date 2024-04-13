@@ -24,7 +24,6 @@ const SinglePage = () => {
       console.log(error);
     }
   };
-  console.log(post);
   return (
     <div className="single-page container">
       <div className="single-page__details hide-scroll">

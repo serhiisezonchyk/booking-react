@@ -5,25 +5,26 @@ import Notification from '../notification/Notification';
 const Navbar: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const { user } = useContext(AuthContext);
+  const handleMenuClick = () => {
+    setOpen(false);
+  };
   return (
     <nav className="nav container">
       <div className="nav__left">
-        <a href="/" className="nav__logo">
+        <Link to="/" className="nav__logo">
           <img src="/logo.png" alt="logo" className="nav__logo-img" />
           <span className="nav__logo-text">BookMe</span>
-        </a>
-        <a href="/home" className="nav__link">
-          Home
-        </a>
-        <a href="/about" className="nav__link">
-          About
-        </a>
-        <a href="/contact" className="nav__link">
-          Contact
-        </a>
-        <a href="/agents" className="nav__link">
-          Agents
-        </a>
+        </Link>
+        <Link to="/list" className="nav__link">
+          Services
+        </Link>
+        {user && (
+          <>
+            <Link to="/chat" className="nav__link">
+              Chat
+            </Link>
+          </>
+        )}
       </div>
       <div className="nav__right">
         {user ? (
@@ -31,7 +32,6 @@ const Navbar: React.FC = () => {
             <Link to="/profile">
               <img className="user-image" src={user.avatar || '/noavatar.jpeg'} alt="" />
             </Link>
-
             <span className="user-span">{user.username}</span>
             <Link className="user-link" to="/profile">
               <Notification />
@@ -40,12 +40,12 @@ const Navbar: React.FC = () => {
           </div>
         ) : (
           <>
-            <a href="/login" className="nav__link">
+            <Link to="/login" className="nav__link">
               Sign in
-            </a>
-            <a href="/register" className="nav__link nav__link--accent">
+            </Link>
+            <Link to="/register" className="nav__link nav__link--accent">
               Sign up
-            </a>
+            </Link>
           </>
         )}
 
@@ -60,24 +60,23 @@ const Navbar: React.FC = () => {
           />
         </div>
         <div className={`nav__menu ${open ? 'active' : ''}`}>
-          <a href="/home" className="nav__menu-item">
-            Home
-          </a>
-          <a href="/about" className="nav__menu-item">
-            About
-          </a>
-          <a href="/contact" className="nav__menu-item">
-            Contact
-          </a>
-          <a href="/agents" className="nav__menu-item">
-            Agents
-          </a>
-          <a href="/" className="nav__menu-item">
-            Sign in
-          </a>
-          <a href="/" className="nav__menu-item">
-            Sign up
-          </a>
+          <Link to="/list" className="nav__menu-item" onClick={handleMenuClick}>
+            Services
+          </Link>
+          {!user ? (
+            <>
+              <Link to="/" className="nav__menu-item" onClick={handleMenuClick}>
+                Sign in
+              </Link>
+              <Link to="/" className="nav__menu-item" onClick={handleMenuClick}>
+                Sign up
+              </Link>
+            </>
+          ) : (
+            <Link to="/chat" className="nav__menu-item" onClick={handleMenuClick}>
+              Chat
+            </Link>
+          )}
         </div>
       </div>
     </nav>

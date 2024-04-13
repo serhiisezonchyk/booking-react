@@ -2,7 +2,8 @@ import { AxiosError } from 'axios';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Uploadwidget from '../../components/upload-widget/Uploadwidget';
-import { AuthContext, User } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
+import { User } from '../../data/types';
 import apiRequest from '../../lib/apiRequest';
 
 interface FormValues {

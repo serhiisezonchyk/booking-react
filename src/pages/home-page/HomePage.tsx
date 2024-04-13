@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import SearchBar from '../../components/search-bar/SearchBar';
-import { AuthContext } from '../../context/AuthContext';
 
 const HomePage: React.FC = () => {
   return (

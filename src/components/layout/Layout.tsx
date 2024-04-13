@@ -18,7 +18,6 @@ const Layout = () => {
 
 const RequiredAuthLayout = () => {
   const { user } = useContext(AuthContext);
-
   return !user ? (
     <Navigate to="/login" />
   ) : (

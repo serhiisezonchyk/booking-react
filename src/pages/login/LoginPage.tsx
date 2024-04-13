@@ -1,7 +1,8 @@
 import { AxiosError } from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext, User } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
+import { User } from '../../data/types';
 import apiRequest from '../../lib/apiRequest';
 
 interface ErrorResponse {

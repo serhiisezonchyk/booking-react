@@ -1,11 +1,45 @@
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { useModal } from '../../context/ModalContext';
 import { Post } from '../../data/types';
+import apiRequest from '../../lib/apiRequest';
+import ModalMessage from '../modal/ModalMessage';
 
 interface CardProps {
   item: Post;
 }
 
 const Card = ({ item }: CardProps) => {
+  const { user } = useContext(AuthContext);
+  const [saved, setSaved] = useState<boolean>(item.isSaved ?? false);
+  const { openModal, setContent,closeModal } = useModal();
+  const navigate = useNavigate();
+  const handleChatClick = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    setContent({
+      children: <ModalMessage receiverId={item.userId}  userId={user.id} onClose={closeModal}/>,
+      title: 'Send message',
+    });
+    openModal();
+  };
+  const handleSave = async (id: string) => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    setSaved((prev) => !prev);
+    try {
+      await apiRequest.post('/user/save', { postId: id });
+    } catch (error) {
+      setSaved((prev) => !prev);
+      console.log(error);
+    }
+  };
   return (
     <div className="card">
       <Link to={`/${item.id}`} className="card__img-container">
@@ -32,12 +66,16 @@ const Card = ({ item }: CardProps) => {
             </div>
           </div>
           <div className="card__icons">
-            <div className="icon">
-              <img className="icon__img" src="/save.png" alt="Save" />
-            </div>
-            <div className="icon">
-              <img className="icon__img" src="/chat.png" alt="Chat" />
-            </div>
+            {user?.id !== item.userId && (
+              <>
+                <div className={`icon ${saved ? 'saved' : ''}`} onClick={() => handleSave(item.id)}>
+                  <img className="icon__img" src="/save.png" alt="Save" />
+                </div>
+                <div className="icon">
+                  <img className="icon__img" src="/chat.png" alt="Chat" onClick={handleChatClick} />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

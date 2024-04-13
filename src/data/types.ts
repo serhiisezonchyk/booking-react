@@ -18,7 +18,7 @@ export interface Post {
   longitude: string;
   type: TypeType;
   property: TypeProperty;
-  createdAt: Date;
+  createdAt: string;
   isSaved?: boolean;
   userId: string;
 }
@@ -34,6 +34,29 @@ export interface PostDetails {
   restaurant: number | null;
   postId: string;
 }
+export interface Message {
+  id: string;
+  text: string;
+  userId: string;
+  chat: Chat;
+  chatId: string;
+  createdAt: string;
+}
+export interface Chat {
+  id: string;
+  users: User[];
+  userIDs: string[];
+  createdAt: string;
+  seenBy: string[];
+  messages?: Message[];
+  lastMessage?: string | null;
+  lastMessageTime?: string;
+}
+export type Receiver = Pick<User, 'username' | 'avatar' | 'id'>;
+export interface ChatsResponse extends Chat {
+  receiver: Receiver;
+}
+
 export type TypeType = 'buy' | 'rent';
 export type TypeProperty = 'apartment' | 'house' | 'condo' | 'land';
 export interface QueryParam {

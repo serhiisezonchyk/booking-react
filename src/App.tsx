@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Layout, RequiredAuthLayout } from './components/layout/Layout';
-import { listPageloader, profilePageloader, singlePageloader } from './lib/loaders';
+import { chatPageloader, listPageloader, profilePageloader, singlePageloader } from './lib/loaders';
 import ChatPage from './pages/chat-page/ChatPage';
 import HomePage from './pages/home-page/HomePage';
 import ListPage from './pages/list-page/ListPage';
@@ -57,6 +57,7 @@ function App() {
         {
           path: '/chat',
           element: <ChatPage />,
+          loader: chatPageloader,
         },
         {
           path: '/add',

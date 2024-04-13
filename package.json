@@ -10,21 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-timeago": "^4.1.7",
     "axios": "^1.6.8",
     "dompurify": "^3.1.0",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-input-emoji": "^5.8.0",
     "react-leaflet": "^4.2.1",
+    "react-modal": "^3.16.1",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.22.3",
-    "sass": "^1.72.0"
+    "react-timeago": "^7.2.0",
+    "sass": "^1.72.0",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
     "@types/leaflet": "^1.9.8",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "@types/react-modal": "^3.16.3",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
