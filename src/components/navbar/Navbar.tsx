@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import { useNotificationStore } from '../../lib/notificationStore';
 import Notification from '../notification/Notification';
+import { useNotificationStore } from '../../store/notificationStore';
 const Navbar: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const { user } = useContext(AuthContext);

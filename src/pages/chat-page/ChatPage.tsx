@@ -7,7 +7,7 @@ import { SocketContext } from '../../context/SocketContext';
 import { Chat, Message, Receiver } from '../../data/types';
 import apiRequest from '../../lib/apiRequest';
 import { DeferChats } from '../../lib/loaders';
-import { useNotificationStore } from '../../lib/notificationStore';
+import { useNotificationStore } from '../../store/notificationStore';
 
 interface ChatState extends Chat {
   receiver: Receiver;
