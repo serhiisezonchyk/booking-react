@@ -43,7 +43,7 @@ const ChatPage = () => {
     try {
       const res = await apiRequest.post<SendMessageResponse>('/message/' + chat?.id, { text: str });
       setChat((prev) => ({ ...prev!, messages: [...prev?.messages!, res.data.message] }));
-      socket?.emit('sendMessage', { receiverId: chat?.receiver.id, data: res.data.message });
+      socket?.emit('sendMessage', { receiverId: chat?.receiver.id!, data: res.data.message });
       revalidator.revalidate();
     } catch (error) {
       console.log(error);
