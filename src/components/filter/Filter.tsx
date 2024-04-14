@@ -42,9 +42,12 @@ const Filter: React.FC = () => {
 
   return (
     <div className="filter">
-      <h1 className="filter__title">
-        Search results for <b>{searchParams.get('city')}</b>
-      </h1>
+      {searchParams.get('city') && (
+        <h1 className="filter__title">
+          Search results for <b>{searchParams.get('city')}</b>
+        </h1>
+      )}
+
       <div className="filter__top">
         <div className="filter__item item--top">
           <label htmlFor="city">Location</label>

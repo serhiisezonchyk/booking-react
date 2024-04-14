@@ -1,0 +1,35 @@
+.auth-form {
+  &__item {
+    position: relative;
+    width: 100%;
+    &-input :focus,
+    &-input {
+      max-width: 280px;
+      width: 100%;
+      padding: 8px 16px;
+      border: 1px solid clr(border);
+      border-radius: 5px;
+
+      &:hover,
+      &:active {
+        border-color: clr(border, dark);
+      }
+      @include xs {
+        min-width: 100%;
+        width: 100%;
+      }
+    }
+    &:has(.auth-form__item-error) {
+      .auth-form__item-input {
+        border: 1px solid red;
+      }
+    }
+    &-error {
+      font-weight: 100;
+      position: absolute;
+      color: clr(red, light);
+      bottom: -24px;
+      left: 2px;
+    }
+  }
+}

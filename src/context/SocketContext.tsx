@@ -13,9 +13,6 @@ export const SocketContextProvider = ({ children }: { children: React.ReactNode 
   }, []);
   useEffect(() => {
     user && socket?.emit('newUser', user.id);
-    return()=>{
-      socket?.emit('disconnect', user?.id);
-    }
   }, [user, socket]);
   return <SocketContext.Provider value={{ socket: socket! }}>{children}</SocketContext.Provider>;
 };

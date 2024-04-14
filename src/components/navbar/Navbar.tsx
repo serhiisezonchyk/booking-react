@@ -65,25 +65,27 @@ const Navbar: React.FC = () => {
             }}
           />
         </div>
-        <div className={`nav__menu ${open ? 'active' : ''}`}>
-          <Link to="/list" className="nav__menu-item" onClick={handleMenuClick}>
-            Services
-          </Link>
-          {!user ? (
-            <>
-              <Link to="/" className="nav__menu-item" onClick={handleMenuClick}>
-                Sign in
-              </Link>
-              <Link to="/" className="nav__menu-item" onClick={handleMenuClick}>
-                Sign up
-              </Link>
-            </>
-          ) : (
-            <Link to="/chat" className="nav__menu-item" onClick={handleMenuClick}>
-              Chat
+        {open && (
+          <div className={`nav__menu ${open ? 'active' : ''}`}>
+            <Link to="/list" className="nav__menu-item" onClick={handleMenuClick}>
+              Services
             </Link>
-          )}
-        </div>
+            {!user ? (
+              <>
+                <Link to="/login" className="nav__menu-item" onClick={handleMenuClick}>
+                  Sign in
+                </Link>
+                <Link to="/register" className="nav__menu-item" onClick={handleMenuClick}>
+                  Sign up
+                </Link>
+              </>
+            ) : (
+              <Link to="/chat" className="nav__menu-item" onClick={handleMenuClick}>
+                Chat
+              </Link>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );

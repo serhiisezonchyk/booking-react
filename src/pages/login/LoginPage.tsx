@@ -1,13 +1,17 @@
 import { AxiosError } from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import InputAuth from '../../components/input-auth/InputAuth';
 import { AuthContext } from '../../context/AuthContext';
 import { User } from '../../data/types';
 import apiRequest from '../../lib/apiRequest';
-
+interface ValidationError {
+  path: string;
+  message: string;
+}
 interface ErrorResponse {
   error: string;
-  details?: any;
+  details?: ValidationError[];
 }
 interface LoginForm {
   username: string | null;
@@ -19,7 +23,7 @@ interface LoginResponse {
   user: Omit<User, 'password'>;
 }
 const LoginPage = () => {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErrorResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { updateUser } = useContext(AuthContext);
@@ -41,7 +45,7 @@ const LoginPage = () => {
       navigate('/');
     } catch (e) {
       const message: ErrorResponse = (e as AxiosError).response?.data as ErrorResponse;
-      setError(message?.error || 'An error occured.');
+      setError(message);
     } finally {
       setIsLoading(false);
     }
@@ -51,12 +55,23 @@ const LoginPage = () => {
       <div className="login__container">
         <form action="" className="login-form" onSubmit={handleSubmit}>
           <h1 className="login-form__title">Welcome back</h1>
-          <input name="username" placeholder="Username" type="text" className="login-form__input" />
-          <input name="password" placeholder="Password" type="password" className="login-form__input" />
+          <InputAuth
+            name="username"
+            placeholder="Username"
+            type="text"
+            error={error?.details?.find((el) => el.path === 'username')?.message}
+          />
+          <InputAuth
+            name="password"
+            placeholder="Password"
+            type="password"
+            error={error?.details?.find((el) => el.path === 'password')?.message}
+          />
+
           <button disabled={isLoading} className="login-form__button">
             login
           </button>
-          {error && <span className="login-form__error">{error}</span>}
+          {error?.error && <span className="login-form__error">{error.error}</span>}
           <Link to="/register" className="login-form__link">
             Don`t you have an account?
           </Link>

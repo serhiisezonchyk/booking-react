@@ -1,11 +1,15 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import InputAuth from '../../components/input-auth/InputAuth';
 import apiRequest from '../../lib/apiRequest';
-
+interface ValidationError {
+  path: string;
+  message: string;
+}
 interface ErrorResponse {
   error: string;
-  details?: any;
+  details?: ValidationError[];
 }
 interface RegisterForm {
   username: string | null;
@@ -16,7 +20,7 @@ interface RegisterResponse {
   message: string;
 }
 const Register = () => {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErrorResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -37,7 +41,7 @@ const Register = () => {
       navigate('/login');
     } catch (e) {
       const message: ErrorResponse = (e as AxiosError).response?.data as ErrorResponse;
-      setError(message?.error || 'An error occured.');
+      setError(message);
     } finally {
       setIsLoading(false);
     }
@@ -47,13 +51,29 @@ const Register = () => {
       <div className="register__container">
         <form action="" className="register-form" onSubmit={handleSubmit}>
           <h1 className="register-form__title">Create an account</h1>
-          <input name="username" placeholder="Username" type="text" className="register-form__input" />
-          <input name="email" placeholder="Email" type="text" className="register-form__input" />
-          <input name="password" placeholder="Password" type="password" className="register-form__input" />
+          <InputAuth
+            name="username"
+            placeholder="Username"
+            type="text"
+            error={error?.details?.find((el) => el.path === 'username')?.message}
+          />
+          <InputAuth
+            name="email"
+            placeholder="Email"
+            type="text"
+            error={error?.details?.find((el) => el.path === 'email')?.message}
+          />
+          <InputAuth
+            name="password"
+            placeholder="Password"
+            type="password"
+            error={error?.details?.find((el) => el.path === 'password')?.message}
+          />
+
           <button disabled={isLoading} className="register-form__button">
             Register
           </button>
-          {error && <span className="register-form__error">{error}</span>}
+          {error?.error && <span className="register-form__error">{error.error}</span>}
           <Link to="/login" className="register-form__link">
             Do you have an account?
           </Link>

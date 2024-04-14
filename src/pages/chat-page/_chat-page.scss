@@ -1,123 +1,12 @@
-// .chat {
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   &__title {
-//     position: sticky;
-//     top: 0;
-//     background: clr(bg, secondary);
-//     font-weight: 200;
-//   }
-//   &__messages {
-//     position: relative;
-
-//     flex: 1;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 20px;
-//     overflow-y: scroll;
-//     .message {
-//       background-color: clr(bg);
-//       padding: 20px;
-//       border-radius: 5px;
-//       display: flex;
-//       align-items: center;
-//       gap: 20px;
-//       cursor: pointer;
-//       &__span {
-//         font-weight: bold;
-//       }
-//       &__img {
-//         @include avatar(40px);
-//       }
-//       &__p {
-//       }
-//     }
-//   }
-//   &__chat-box {
-//     flex: 1;
-//     background-color: clr(bg);
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     &-top {
-//       background-color: clr(accent);
-//       padding: 10px 20px;
-//       font-weight: bold;
-//       display: flex;
-//       align-items: center;
-//       justify-content: space-between;
-//       .user {
-//         display: flex;
-//         align-items: center;
-//         gap: 20px;
-//         &__img {
-//           @include avatar(30px);
-//         }
-//       }
-//       .close {
-//         padding: 5px 10px;
-//         cursor: pointer;
-//       }
-//     }
-//     &-center {
-//       overflow: scroll;
-//       height: 350px;
-//       padding: 10px 20px;
-//       display: flex;
-//       flex-direction: column;
-//       gap: 20px;
-//       .chat-message {
-//         width: 50%;
-//         border-left: 1px solid clr(accent);
-//         padding-left: 4px;
-//         &__p {
-//         }
-//         &__span {
-//           font-size: 12px;
-//           padding: 2px 4px;
-//           border-radius: 5px;
-//           background-color: clr(accent, secondary);
-//         }
-//         &.own {
-//           align-self: flex-end;
-//           text-align: right;
-//           border: none;
-//           padding: 0;
-//           border-right: 1px solid clr(accent);
-//           padding-right: 4px;
-//         }
-//       }
-//     }
-//     &-bottom {
-//       border-top: 2px solid clr(accent);
-//       height: 60px;
-//       display: flex;
-//       align-items: center;
-//       justify-content: space-between;
-//       textarea {
-//         flex: 3;
-//         height: 100%;
-//         border: none;
-//         padding: 5px 15px;
-//       }
-//       button {
-//         flex: 1;
-//         background-color: clr(accent);
-//         height: 100%;
-//         border: none;
-//         cursor: pointer;
-//       }
-//     }
-//   }
-// }
-
 .chat {
   display: flex;
   flex-direction: row;
   height: 100%;
   &.container {
     padding-right: 0;
+    @include sm {
+      padding: 0;
+    }
   }
   .list {
     flex: 2;
@@ -143,7 +32,6 @@
     &-body {
       display: flex;
       flex-direction: column;
-      gap: 15px;
       height: 100%;
       &__text {
         color: clr(gray, secondary);
@@ -157,15 +45,18 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 5px;
-        padding: 0 10px;
+        gap: 4px;
+        padding: 10px;
         position: relative;
         cursor: pointer;
+        border-bottom: 1px solid clr(gray, base);
         &__notification {
           position: absolute;
-          right: 0;
-          bottom: 10px;
-          background-color: clr(bg, secondary);
+          right: 5px;
+          width: 10px;
+          height: 10px;
+          top: 8px;
+          background-color: clr(accent);
           border-radius: 50%;
         }
         &__img {
@@ -189,6 +80,7 @@
     flex: 3;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     &__text {
       color: clr(gray, secondary);
       text-align: center;
@@ -200,13 +92,14 @@
     @include sm {
       background-color: clr(bg);
       position: absolute;
-      width: 100%;
+      width: 0;
       height: 100%;
       top: 0;
       transition: all 0.4s ease;
       right: -100%;
       z-index: 999;
       &-open {
+        width: 100%;
         right: 0;
       }
     }
@@ -292,21 +185,8 @@
       height: 60px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      textarea {
-        flex: 3;
-        height: 100%;
-        border: none;
-        padding: 5px 15px;
-        resize: none;
-      }
-      button {
-        flex: 1;
-        background-color: clr(accent);
-        height: 100%;
-        border: none;
-        cursor: pointer;
-      }
+      justify-content: center;
+      align-items: center;
     }
   }
 }
